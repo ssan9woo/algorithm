@@ -16,8 +16,4 @@ class Solution:
                 prev = i = prev + len(group)
             i += 1
         
-        print('hello')
-
-            
-
-                
+        return len(chars)
