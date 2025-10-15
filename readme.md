@@ -1,7 +1,8 @@
 ## Algorithm
 
 ### Week 2542
-- String to Integer (atoi)[https://leetcode.com/problems/string-to-integer-atoi/description/]
+- [String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/description/)
+- [Implement strStr()](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/)
 
 <br><br>
 
@@ -14,12 +15,13 @@
     1.3. [선행 문자(Prefix) 조건적 제거](#13-선행-문자prefix-조건적-제거)<br>
     1.4. [조건을 만족하는 선행 문자열 추출](#14-조건을-만족하는-선행-문자열-추출)<br>
     1.5. [문자열의 첫 문자 접근 및 제거](#15-문자열의-첫-문자-접근-및-제거)<br>
+    1.6. [하위 문자열의 첫 출현 인덱스 찾기](#16-하위-문자열의-첫-출현-인덱스-찾기)<br>
 2. [수학 및 타입 처리](#2-수학-및-타입-처리)<br>
     2.1. [정수 경계 상수 및 타입 변환](#21-정수-경계-상수-및-타입-변환)<br>
     2.2. [산술적 오버플로우/언더플로우 사전 체크](#22-산술적-오버플로우언더플로우-사전-체크)<br>
     2.3. [함수 반환 값 (튜플) 분해](#23-함수-반환-값-튜플-분해)
 
-<br><br>
+***
 
 ## 1. 문자열 (String & Character) 처리
 
@@ -37,7 +39,7 @@
     }
     ```
 
-<br>
+---
 
 ### 1.2 Character를 Int 정수 값으로 변환
 
@@ -52,7 +54,7 @@
     let failed = Character("a").wholeNumberValue // nil
     ```
 
-<br>
+---
 
 ### 1.3 선행 문자(Prefix) 조건적 제거
 
@@ -67,7 +69,7 @@
     let result = String(s.drop(while: { $0 == " " || $0 == "0" })) // "7hello"
     ```
 
-<br>
+---
 
 ### 1.4 조건을 만족하는 선행 문자열 추출
 
@@ -82,7 +84,7 @@
     let result = String(numericPart) // String: "123"
     ```
 
-<br>
+---
 
 ### 1.5 문자열의 첫 문자 접근 및 제거
 
@@ -96,8 +98,30 @@
     }
     ```
 
-<br>
-<br>
+---
+
+### 1.6 하위 문자열의 첫 출현 인덱스 찾기
+
+* **관련 메소드:** `String.range(of: String)`
+* **용도:** 문자열 내에서 **특정 하위 문자열(Prefix/Substring)**이 처음으로 나타나는 범위를 **`Range<String.Index>`** 형태로 찾습니다.
+* **사용 시점:** 특정 문자열이 시작되는 위치를 알아내야 할 때 사용하며, 반환된 `Range`의 **`lowerBound`**가 시작 인덱스를 나타냅니다.
+* **정수 인덱스 변환:** Swift의 `String.Index`를 일반적인 정수 오프셋으로 변환하려면 `fullString.distance(from: fullString.startIndex, to: range.lowerBound)`를 사용해야 합니다.
+* **예시:**
+    ```swift
+    let s = "banana"
+    let sub = "na"
+    
+    if let range = s.range(of: sub) {
+        // String.Index 타입의 시작 위치
+        let startIndex = range.lowerBound
+        
+        // 정수(Int) 오프셋으로 변환
+        let intIndex = s.distance(from: s.startIndex, to: startIndex) // 2
+        print("첫 번째 '\(sub)'의 인덱스(Int): \(intIndex)") // 2
+    }
+    ```
+
+***
 
 ## 2. 수학 및 타입 처리
 
@@ -112,7 +136,7 @@
     let result: Int = Int(INT32_MAX) // Int32를 Int(64비트)로 명시적 변환
     ```
 
-<br>
+---
 
 ### 2.2 산술적 오버플로우/언더플로우 사전 체크
 
@@ -121,7 +145,7 @@
 * **예시 (Int32 기준):**
     ```swift
     let boundary = Int32.max / 10 // 214748364 (Int32.max의 10의 자리까지)
-    let result: Int32 = 0 // 누적 값
+    var result: Int32 = 0 // 누적 값
 
     // 양수 오버플로우 체크
     if result > boundary || (result == boundary && digit > 7) {
@@ -136,7 +160,7 @@
     result = result * 10 + digit // 안전하게 값 누적 
     ```
 
-<br>
+---
 
 ### 2.3 함수 반환 값 (튜플) 분해
 
