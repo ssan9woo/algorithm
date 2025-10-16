@@ -3,6 +3,7 @@
 ### Week 2542
 - [String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/description/)
 - [Implement strStr()](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/)
+- [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
 
 <br><br>
 
